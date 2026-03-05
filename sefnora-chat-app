@@ -1,0 +1,163 @@
+function sendMessage() {
+    const userInput = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
+    const message = userInput.value;
+
+    if (message.trim() === "") return;
+
+    // 1. User ge message eka screen ekata danna
+    chatBox.innerHTML += `<div style="text-align: right; margin-bottom: 10px;">
+        <span style="background: #333; padding: 8px; border-radius: 10px; border: 1px solid #ffd700;">${message}</span>
+    </div>`;
+
+    userInput.value = ""; // Input eka clear karanna
+
+    // 2. AI Auto-Reply eka (Seconds 1k gihin ena widiyata)
+    setTimeout(() => {
+        const aiReply = `<b>SEFNORA AI:</b><br>Hello! How can I help you?<br><br>
+        Please enter your language code:<br>
+        1. SINHALA<br>
+        2. ENGLISH<br>
+        3. TAMIL<br>
+        4. OTHERS`;
+
+        chatBox.innerHTML += `<div style="text-align: left; margin-bottom: 10px;">
+            <span style="background: #ffd700; color: #000; padding: 10px; border-radius: 10px; display: inline-block; line-height: 1.5;">${aiReply}</span>
+        </div>`;
+
+        // Chat eka thawa pahalata scroll karanna
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 1000);
+}let currentLanguage = null; // User select karana language eka save karanna
+
+function sendMessage() {
+    const userInput = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
+    const message = userInput.value.trim();
+
+    if (message === "") return;
+
+    // 1. User ge message eka screen ekata danna
+    appendMessage('User', message, 'right');
+    userInput.value = "";
+
+    // 2. Logic eka check karamu
+    setTimeout(() => {
+        // Kisima language ekak thama select karala neththam
+        if (currentLanguage === null) {
+            if (message === "1") {
+                currentLanguage = "SINHALA";
+                appendMessage('SEFNORA AI', 'ඔබ සිංහල භාෂාව තෝරාගත්තා. මම ඔබට කොහොමද උදව් කරන්නේ?', 'left');
+            } else if (message === "2") {
+                currentLanguage = "ENGLISH";
+                appendMessage('SEFNORA AI', 'You selected English. How can I help you?', 'left');
+            } else {
+                // Default Welcome Message
+                const welcome = `Hello! How can I help you?<br><br>
+                Please enter your language code:<br>
+                1. SINHALA<br>
+                2. ENGLISH`;
+                appendMessage('SEFNORA AI', welcome, 'left');
+            }
+        } 
+        // Language eka 1 (Sinhala) nam
+        else if (currentLanguage === "SINHALA") {
+            if (message.toLowerCase().includes("kohomada")) {
+                appendMessage('SEFNORA AI', 'මම හොඳින් ඉන්නවා. ඔයාටත් කොහොමද? ඔයා හොඳින් ඇති කියලා මම හිතනවා!', 'left');
+            } else {
+                appendMessage('SEFNORA AI', 'ඔබේ ප්‍රශ්නයට මම සූදානම්.', 'left');
+            }
+        }
+        // Language eka 2 (English) nam
+        else if (currentLanguage === "ENGLISH") {
+            if (message.toLowerCase().includes("how are you")) {
+                appendMessage('SEFNORA AI', "I'm doing great! How about you? I hope you're having a wonderful day!", 'left');
+            } else {
+                appendMessage('SEFNORA AI', "I'm ready for your questions.", 'left');
+            }
+        }
+    }, 800);
+}
+
+// Message eka chat box ekata danna lassanata hadapu function eka
+function appendMessage(sender, text, side) {
+    const chatBox = document.getElementById('chat-box');
+    const bgColor = (side === 'right') ? '#333' : '#ffd700';
+    const textColor = (side === 'right') ? '#fff' : '#000';
+    const align = (side === 'right') ? 'right' : 'left';
+
+    const msgHtml = `<div style="text-align: ${align}; margin-bottom: 12px;">
+        <div style="background: ${bgColor}; color: ${textColor}; padding: 12px; border-radius: 15px; display: inline-block; max-width: 80%; border: 1px solid #ffd700; font-family: sans-serif;">
+            <b>${sender}:</b><br>${text}
+        </div>
+    </div>`;
+    
+    chatBox.innerHTML += msgHtml;
+    chatBox.scrollTop = chatBox.scrollHeight;
+}let currentLanguage = null; // User select karana language eka save karanna
+
+function sendMessage() {
+    const userInput = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
+    const message = userInput.value.trim();
+
+    if (message === "") return;
+
+    // 1. User ge message eka screen ekata danna
+    appendMessage('User', message, 'right');
+    userInput.value = "";
+
+    // 2. Logic eka check karamu
+    setTimeout(() => {
+        // Kisima language ekak thama select karala neththam
+        if (currentLanguage === null) {
+            if (message === "1") {
+                currentLanguage = "SINHALA";
+                appendMessage('SEFNORA AI', 'ඔබ සිංහල භාෂාව තෝරාගත්තා. මම ඔබට කොහොමද උදව් කරන්නේ?', 'left');
+            } else if (message === "2") {
+                currentLanguage = "ENGLISH";
+                appendMessage('SEFNORA AI', 'You selected English. How can I help you?', 'left');
+            } else {
+                // Default Welcome Message
+                const welcome = `Hello! How can I help you?<br><br>
+                Please enter your language code:<br>
+                1. SINHALA<br>
+                2. ENGLISH`;
+                appendMessage('SEFNORA AI', welcome, 'left');
+            }
+        } 
+        // Language eka 1 (Sinhala) nam
+        else if (currentLanguage === "SINHALA") {
+            if (message.toLowerCase().includes("kohomada")) {
+                appendMessage('SEFNORA AI', 'මම හොඳින් ඉන්නවා. ඔයාටත් කොහොමද? ඔයා හොඳින් ඇති කියලා මම හිතනවා!', 'left');
+            } else {
+                appendMessage('SEFNORA AI', 'ඔබේ ප්‍රශ්නයට මම සූදානම්.', 'left');
+            }
+        }
+        // Language eka 2 (English) nam
+        else if (currentLanguage === "ENGLISH") {
+            if (message.toLowerCase().includes("how are you")) {
+                appendMessage('SEFNORA AI', "I'm doing great! How about you? I hope you're having a wonderful day!", 'left');
+            } else {
+                appendMessage('SEFNORA AI', "I'm ready for your questions.", 'left');
+            }
+        }
+    }, 800);
+}
+
+// Message eka chat box ekata danna lassanata hadapu function eka
+function appendMessage(sender, text, side) {
+    const chatBox = document.getElementById('chat-box');
+    const bgColor = (side === 'right') ? '#333' : '#ffd700';
+    const textColor = (side === 'right') ? '#fff' : '#000';
+    const align = (side === 'right') ? 'right' : 'left';
+
+    const msgHtml = `<div style="text-align: ${align}; margin-bottom: 12px;">
+        <div style="background: ${bgColor}; color: ${textColor}; padding: 12px; border-radius: 15px; display: inline-block; max-width: 80%; border: 1px solid #ffd700; font-family: sans-serif;">
+            <b>${sender}:</b><br>${text}
+        </div>
+    </div>`;
+    
+    chatBox.innerHTML += msgHtml;
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
